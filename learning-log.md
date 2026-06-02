@@ -189,3 +189,62 @@ ENOEXEC
     npm install -D typescript tsx @types/node
 4. Проверить tsx
     npx tsx --version
+
+--------------------------------------------------------1
+express
+=
+двигатель сервера
+cors
+=
+охранник, который разрешает frontend говорить с backend
+nodemon
+=
+автоматически перезапускает сервер при изменении файлов
+@types/*
+=
+переводчик для TypeScript
+
+## Scripts
+
+tsc (TypeScript Compiler) — это официальный компилятор, который преобразует код из файлов .ts (TypeScript) в обычный JavaScript
+
+Scripts находятся в package.json.
+
+Позволяют создавать свои команды.
+
+Пример:
+
+npm run dev
+
+вместо:
+
+tsx watch src/index.ts
+
+Основные команды:
+
+Script	          Formål
+npm run dev	    Starter udviklingsserver
+npm run build	Bygger projektet
+npm run start	Starter produktionsversion
+npm run seed	Seeder database
+npm run test	Kører tests
+
+## Express
+
+Express er et framework til Node.js.
+
+Fordele:
+
+- nem routing
+- mindre kode
+- nemmere API udvikling
+
+Request:
+req
+
+Response:
+res
+
+Route:
+
+app.get("/about")
