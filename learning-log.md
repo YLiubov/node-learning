@@ -248,3 +248,87 @@ res
 Route:
 
 app.get("/about")
+
+<!-- ///////////////////////////////////// -->
+
+Simple Browser: Show
+
+node-learning/
+
+src/
+├── index.ts          ⭐ главный файл
+└── routes/
+    └── carRoutes.ts  ⭐ маршруты
+
+.env                  ⭐ настройки
+
+package.json          ⭐ команды
+
+prisma/
+└── schema.prisma     ⭐ база данных
+
+
+# Backend Learning Map
+
+node-learning/
+
+src/
+├── index.ts
+│   ⭐ Главный файл сервера
+│   ⭐ Запускает Express
+│   ⭐ Подключает routes
+│   ⭐ Запускает сервер на порту
+│
+└── routes/
+    └── carRoutes.ts
+        ⭐ Маршруты сайта
+        ⭐ /cars
+        ⭐ /cars/:id
+        ⭐ req.params
+
+.env
+⭐ Настройки проекта
+⭐ PORT=4000
+⭐ DATABASE_URL=...
+
+package.json
+⭐ Список пакетов
+⭐ npm scripts
+⭐ npm run dev
+⭐ npm run build
+⭐ npm run start
+
+tsconfig.json
+⭐ Настройки TypeScript
+⭐ Говорит TypeScript как собирать проект
+
+prisma/
+└── schema.prisma
+    ⭐ Чертёж базы данных
+    ⭐ Таблицы
+    ⭐ Поля
+    ⭐ Модели Prisma
+
+prisma.config.ts
+⭐ Настройки Prisma
+⭐ Prisma читает этот файл сама
+⭐ Пока не трогаем
+
+dev.db
+⭐ Наша SQLite база данных
+⭐ Здесь лежат данные
+
+prisma/
+└── migrations/
+    ⭐ История изменений базы данных
+    ⭐ Создаётся автоматически
+    ⭐ Обычно руками не редактируем
+
+node_modules/
+⭐ Все установленные пакеты
+⭐ Руками не трогаем
+
+package-lock.json
+⭐ Версии пакетов
+⭐ Создаётся автоматически
+⭐ Руками не трогаем

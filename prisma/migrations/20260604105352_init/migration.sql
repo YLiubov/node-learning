@@ -1,0 +1,9 @@
+-- CreateTable
+CREATE TABLE "tests" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "title" TEXT NOT NULL,
+    "description" TEXT NOT NULL,
+    "rating" REAL NOT NULL DEFAULT 0.0,
+    "isActive" BOOLEAN NOT NULL DEFAULT false,
+    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+);

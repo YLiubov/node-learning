@@ -1,0 +1,25 @@
+// This is your Prisma schema file
+// Learn more about Prisma here: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+
+// TestModel
+
+model Test {
+  id Int @id @default(autoincrement()) // Primary key field
+  title String // Text field
+  description String // Text field
+  rating Float @default(0.0) // Decimal number field
+  isActive Boolean @default(false) // Boolean field (true/false)
+  createdAt DateTime @default(now()) // Date and time field
+
+  @@map("tests") // Database table name
+}

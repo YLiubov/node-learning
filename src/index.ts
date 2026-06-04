@@ -1,73 +1,48 @@
+import dotenv from "dotenv";
+
+dotenv.config();
+
 import express, { Request, Response } from "express";
 import { carRoutes } from "./routes/carRoutes.js";
 
-// =========================
 // CREATE APP
-// =========================
-
 const app = express();
 
-const PORT = 4242;
+const PORT = process.env.PORT || "4000";
 
-// =========================
-// ROUTES
-// =========================
+// MAIN ROUTES
 
+// Home page
 app.get("/", (req: Request, res: Response) => {
   res.status(200).send("Welcome to EverRide!");
 });
 
-app.use(carRoutes)
-
+// Departments
 app.get("/departments", (req: Request, res: Response) => {
   res.status(200).send("Our departments");
 });
 
+// About us
 app.get("/about", (req: Request, res: Response) => {
   res.status(200).send("About EverRide");
 });
 
+// Contact
 app.get("/contact", (req: Request, res: Response) => {
   res.status(200).send("Contact us");
 });
 
-// =========================
-// JSON ROUTE
-// =========================
+// ROUTERS
+// All /cars routes are handled in carRoutes.ts
 
-// app.get("/api/car")
-// Если пользователь открыл:
-// http://localhost:4242/api/car
-// то сервер вернёт данные в формате JSON.
-// JSON часто используют для API.
+app.use("/cars", carRoutes);
 
-app.get("/api/car", (req: Request, res: Response) => {
-  res.status(200).json({
-    id: 1,
-    brand: "Volvo",
-    model: "XC60",
-    year: 2024,
-  });
-});
-
-// =========================
 // 404 HANDLER
-// =========================
-
-// app.use()
-// Этот код сработает, если ни один route выше не подошёл.
-// Например:
-// http://localhost:4242/something
-// Тогда сервер вернёт статус 404.
-
 app.use((req: Request, res: Response) => {
   res.status(404).send("404 - Page not found");
 });
 
-// =========================
 // START SERVER
-// =========================
-
 app.listen(PORT, () => {
-  console.log(`Express server kører på http://localhost:${PORT}`);
+  console.log(`Express server running on http://localhost:${PORT}`);
 });
