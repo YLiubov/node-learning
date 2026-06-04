@@ -1,12 +1,10 @@
-import { Router } from "express";
-import type { Request, Response } from "express";
+import { Router, Request, Response } from "express";
+import { carController } from "../controllers/carController.js";
 
 const router = Router();
 
 // GET /cars
-router.get("/", (req: Request, res: Response) => {
-  res.send("Her skal vises en liste af biler");
-});
+router.get("/", carController.getRecords);
 
 // GET /cars/:id
 router.get("/:id", (req: Request, res: Response) => {

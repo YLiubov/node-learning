@@ -3,23 +3,36 @@
 
 generator client {
   provider = "prisma-client-js"
-  output = "../src/generated/prisma"
+  output   = "../src/generated/prisma"
 }
 
 datasource db {
   provider = "sqlite"
 }
 
+model Car {
+  id       Int    @id @default(autoincrement())
+  category String
+  brand    String
+  model    String
+  year     Int
+  price    Float
+  fueltype String
 
-// TestModel
+  @@map("cars")
+}
 
-model Test {
-  id Int @id @default(autoincrement()) // Primary key field
-  title String // Text field
-  description String // Text field
-  rating Float @default(0.0) // Decimal number field
-  isActive Boolean @default(false) // Boolean field (true/false)
-  createdAt DateTime @default(now()) // Date and time field
+model Category {
+  id   Int    @id @default(autoincrement())
+  name String
 
-  @@map("tests") // Database table name
+  @@map("categories")
+}
+
+model Brand {
+  id   Int    @id @default(autoincrement())
+  name String
+  logo String
+
+  @@map("brands")
 }
