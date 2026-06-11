@@ -11,28 +11,39 @@ datasource db {
 }
 
 model Car {
-  id       Int    @id @default(autoincrement())
-  category String
-  brand    String
-  model    String
-  year     Int
-  price    Float
+  id Int @id @default(autoincrement())
+
+  brandId Int
+  categoryId Int
+
+  model String
+  year Int
+  price Float
   fueltype String
+
+  brand Brand @relation(fields: [brandId], references: [id])
+  category Category @relation(fields: [categoryId], references: [id])
 
   @@map("cars")
 }
 
-model Category {
-  id   Int    @id @default(autoincrement())
-  name String
-
-  @@map("categories")
-}
-
 model Brand {
-  id   Int    @id @default(autoincrement())
+  id Int @id @default(autoincrement())
+
   name String
-  logo String
+  logoUrl String?  
+
+  cars Car[]
 
   @@map("brands")
+}
+
+model Category {
+  id Int @id @default(autoincrement())
+
+  name String
+
+  cars Car[]
+
+  @@map("categories")
 }

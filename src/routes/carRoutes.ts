@@ -3,13 +3,15 @@ import { carController } from "../controllers/carController.js";
 
 const router = Router();
 
-// GET /cars
 router.get("/", carController.getRecords);
 
-// GET /cars/:id
-router.get("/:id", (req: Request, res: Response) => {
-  res.send(`Her skal vises bil med id ${req.params.id}`);
-});
+router.post("/", carController.createRecord);
+
+router.get("/:id", carController.getRecord);
+
+router.put("/:id", carController.updateRecord);
+
+router.delete("/:id", carController.deleteRecord);
 
 // GET /cars/:id/:model
 router.get("/:id/:model", (req: Request, res: Response) => {

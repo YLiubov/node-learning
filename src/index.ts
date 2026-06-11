@@ -8,6 +8,9 @@ import { carRoutes } from "./routes/carRoutes.js";
 // CREATE APP
 const app = express();
 
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
 const PORT = process.env.PORT || "4000";
 
 // MAIN ROUTES
