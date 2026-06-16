@@ -1,6 +1,15 @@
 // This is your Prisma schema file
 // Learn more about Prisma here: https://pris.ly/d/prisma-schema
 
+// какие таблицы существуют
+// какие поля есть
+// какие типы данных
+// какие ограничения
+
+// После изменения schema мы делаем:
+// npm run migrate
+// npm run generate
+
 generator client {
   provider = "prisma-client-js"
   output   = "../src/generated/prisma"
@@ -46,4 +55,22 @@ model Category {
   cars Car[]
 
   @@map("categories")
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+model User {
+  id Int @id @default(autoincrement())
+
+  firstname String
+  lastname String
+  email String @unique
+  password String
+  role Role @default(USER)
+  isActive Boolean @default(true)
+
+  @@map("users")
 }

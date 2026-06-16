@@ -4,6 +4,8 @@ dotenv.config();
 
 import express, { Request, Response } from "express";
 import { carRoutes } from "./routes/carRoutes.js";
+import { userRoutes } from "./routes/userRoutes.js";
+import { authRoutes } from "./routes/authRoutes.js";
 
 // CREATE APP
 const app = express();
@@ -39,6 +41,8 @@ app.get("/contact", (req: Request, res: Response) => {
 // All /cars routes are handled in carRoutes.ts
 
 app.use("/cars", carRoutes);
+app.use("/users", userRoutes);
+app.use("/api/login", authRoutes);
 
 // 404 HANDLER
 app.use((req: Request, res: Response) => {
