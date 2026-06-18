@@ -23,6 +23,11 @@ class CarController {
               name: true,
             },
           },
+          fueltype: {
+            select: {
+              name: true,
+            },
+          },
         },
         orderBy: {
           brand: {
@@ -59,6 +64,7 @@ class CarController {
           brand: true,
           category: true,
           fueltype: true,
+          fueltypeId: true,
           model: true,
           price: true,
           year: true,
@@ -88,13 +94,13 @@ class CarController {
 
   createRecord = async (req: Request, res: Response) => {
     try {
-      const { brandId, categoryId, fueltype, model, price, year } = req.body;
+      const { brandId, categoryId, fueltypeId, model, price, year } = req.body;
 
       const data = await prisma.car.create({
         data: {
           brandId: Number(brandId),
           categoryId: Number(categoryId),
-          fueltype,
+          fueltypeId: Number(fueltypeId),
           model,
           price: Number(price),
           year: Number(year),
@@ -122,7 +128,7 @@ class CarController {
   updateRecord = async (req: Request, res: Response) => {
     try {
       const id = Number(req.params.id);
-      const { brandId, categoryId, fueltype, model, price, year } = req.body;
+      const { brandId, categoryId, fueltypeId, model, price, year } = req.body;
 
       const data = await prisma.car.update({
         where: {
@@ -131,7 +137,7 @@ class CarController {
         data: {
           brandId: Number(brandId),
           categoryId: Number(categoryId),
-          fueltype,
+          fueltypeId: Number(fueltypeId),
           model,
           price: Number(price),
           year: Number(year),

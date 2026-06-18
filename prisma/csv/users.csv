@@ -1,0 +1,2 @@
+id,firstname,lastname,email,password,role,isActive
+1,Test,Bruger,test@example.com,password,USER,true
