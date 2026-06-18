@@ -1,18 +1,27 @@
-// Импортируем типы Request и Response.
-// Они нужны только для TypeScript.
-import type { Request, Response } from "express";
-
+import type { Request, Response, NextFunction } from "express";
 // bcrypt нужен для сравнения пароля пользователя
-// с захешированным паролем в базе данных.
 import bcrypt from "bcrypt";
-
 // jsonwebtoken нужен для создания JWT токена.
 import jwt from "jsonwebtoken";
-
 // Импортируем prisma client для работы с БД.
 import { prisma } from "../prisma.js";
 
-// Создаём класс контроллера авторизации.
+interface JwtPayload {
+  exp: number;
+  data: {
+    id: number;
+  };
+}
+
+declare global {
+  namespace Express {
+    interface Request {
+      user?: {
+        id: number;
+      };
+    }
+  }
+}
 class AuthController {
   // ==========================================
   // Генерация JWT токена
@@ -47,7 +56,7 @@ class AuthController {
       },
 
       // Секретный ключ для подписи токена.
-      key
+      key,
     );
   };
 
@@ -97,10 +106,7 @@ class AuthController {
 
       // Сравниваем введённый пароль
       // с хешем пароля в базе.
-      const isPasswordCorrect = await bcrypt.compare(
-        password,
-        user.password
-      );
+      const isPasswordCorrect = await bcrypt.compare(password, user.password);
 
       // Если пароль неверный.
       if (!isPasswordCorrect) {
@@ -131,6 +137,43 @@ class AuthController {
       // Возвращаем серверную ошибку.
       return res.status(500).json({
         message: "Something went wrong while logging in",
+      });
+    }
+  };
+
+  // ==========================================
+  // Middleware: authorize
+  // Проверяет JWT token
+  // ==========================================
+
+  authorize = async (req: Request, res: Response, next: NextFunction) => {
+    const bearerHeader = req.headers["authorization"];
+
+    // Проверяем, что header существуети начинается с "Bearer ".
+    if (!bearerHeader?.startsWith("Bearer ")) {
+      return res.status(401).json({
+        message: "Token is missing or not accepted",
+      });
+    }
+
+    // Из строки "Bearer token_here" достаём только сам token.
+    const token = bearerHeader.split(" ")[1];
+
+    try {
+      // Проверяем, что token настоящий,
+      const decoded = jwt.verify(
+        token,
+        process.env.TOKEN_ACCESS_KEY!,
+      ) as JwtPayload;
+
+      // Сохраняем user id из token в req.user.
+      req.user = decoded.data;
+
+      // Пропускаем request дальше.
+      return next();
+    } catch (error: any) {
+      return res.status(403).json({
+        message: "Invalid or expired token",
       });
     }
   };

@@ -42,7 +42,7 @@ app.get("/contact", (req: Request, res: Response) => {
 
 app.use("/cars", carRoutes);
 app.use("/users", userRoutes);
-app.use("/api/login", authRoutes);
+app.use("/api", authRoutes);
 
 // 404 HANDLER
 app.use((req: Request, res: Response) => {
